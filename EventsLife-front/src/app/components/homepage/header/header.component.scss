@@ -1,0 +1,15 @@
+@import '../../../../styles/variables';
+$text-color: #ffffff;
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  text-align: center;
+  justify-items: center;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: $text-color;
+  background-color: $header-color;
+}
