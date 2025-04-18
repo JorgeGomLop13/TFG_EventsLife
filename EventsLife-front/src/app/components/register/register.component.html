@@ -3,42 +3,103 @@
     <h2>Completa el formulario para registrarte en EventsLife</h2>
 </div>
 <div class="container-form">
-    <form (ngSubmit)="register()" #registerForm="ngForm" class="form">
+    <form #registerForm="ngForm" class="form">
         <div class="field">
             <label for="name">Nombre</label>
-            <input type="text" id="name" name="name" ngModel required placeholder="Tu usuario" class="fill-info" />
+            <input type="text" id="name" name="name" [(ngModel)]="name" required placeholder="Tu usuario" class="fill-info" />
         </div>
         <div class="field">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" ngModel required placeholder="Email" class="fill-info" />
+            <input type="email" id="email" name="email" [(ngModel)]="email" required placeholder="Email" class="fill-info" />
         </div>
         <div class="field" *ngIf="role_selected === 'organizer'">
             <label for="address">Dirección</label>
-            <input type="text" id="address" name="address" ngModel required placeholder="Dirección" class="fill-info" />
+            <input
+                type="text"
+                id="address"
+                name="address"
+                [(ngModel)]="address"
+                required
+                placeholder="Dirección"
+                class="fill-info"
+            />
         </div>
         <div class="field" *ngIf="role_selected === 'organizer'">
             <label for="phone">Teléfono</label>
-            <input type="text" id="phone" name="phone" ngModel required placeholder="Teléfono" class="fill-info" />
+            <input type="text" id="phone" name="phone" [(ngModel)]="phone" required placeholder="Teléfono" class="fill-info" />
         </div>
         <div class="field">
             <label for="password">Contraseña</label>
-            <input type="password" id="password" name="password" ngModel required class="fill-info" />
+            <input type="password" id="password" name="password" [(ngModel)]="password" required class="fill-info" />
         </div>
         <div class="field">
             <label for="password">Confirmación contraseña</label>
-            <input type="password" id="confirmation_password" name="confirmation_password" ngModel required class="fill-info" />
+            <input
+                type="password"
+                id="confirmation_password"
+                name="confirmation_password"
+                [(ngModel)]="confirmation_password"
+                required
+                class="fill-info"
+            />
         </div>
         <div class="select-user">
             <label for="role_selected">Tipo de usuario</label>
-            <div>
+            <div class="user-type">
                 <input type="radio" name="role_selected" (click)="changeRoleSelected('standart')" />
+                <svg
+                    width="36"
+                    height="35"
+                    viewBox="0 0 36 35"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                    <rect x="0.825684" y="0.208008" width="34.7036" height="34.7036" fill="url(#pattern0_31_370)" />
+                    <defs>
+                        <pattern id="pattern0_31_370" patternContentUnits="objectBoundingBox" width="1" height="1">
+                            <use xlink:href="#image0_31_370" transform="scale(0.0208333)" />
+                        </pattern>
+                        <image
+                            id="image0_31_370"
+                            width="48"
+                            height="48"
+                            preserveAspectRatio="none"
+                            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAMKSURBVHgB7ZhdbtNAEMdnnPqJl9ygRihSQCr4CO4baoXUGzQ9Adyg6Q16g5Yb8NIKiYf6COWjUFEh3BtU4gEptnfYzYdjhVLvzBgaofxesray9vx3d3bHf4AV9wvCX6Df34lCGCVkYH3yEnpfEmafr07PoWVaFbDR2xpAgLtAkMDtL8vsz/DD15PX0BKtCIjtiJeUH/0p8N8gSDt5uHeevclAiVqAC96Y/IwAotrtGwJMAcx0yQSxXUaJbXRrL86CUbipFbEGSsYjXw/emMMfxc+DLEtv6v/r959Ha0WwiwEO3bUTXIbjvpugQDUD4zWPeDS7NiUMLr7dvb4X+9gABpqcCEABIu7P2mRo2BS84+PV6bEd/sOqH8EAFIgFxL2duFr3BDdFYbxH0SbwgZU/WWIIyeOHW+sgRCygxCKqLpDSy+xt5tvXJq4LPq2CCDEBIWIBBObZvA3sA4qqHWp80EUgRJUDy4BYAAZwXbVtSgATtGfDrG0QxCWGWEAHTFpdECZxlHR9+7rDz/4k1Q2TX4MQsYDzS5u0NE1EhG4ZPtj37WtMMbCqp4LJFnnv/v0MOEqg+daJ8Orpo+3dpj4bvRcDAqrEGpiczFLUtdBGb/vM7eXzB+JBMFo7Xqxx4mina8JiSEgvZ/fsIZZ+ujq5v1LC4Wqc0ARn9lHR/KFoizmTzrZXl+Q2aROqlo2DsnxkNjnnx220Uk6PRZSdo/pM3IUb+SIv97TBO1r9oHliC7UOwn59Nuq4wAnh+GLZPmgWsULiTgDrNuDxXh+AyfI8SL98PxVvlyuWFdUSWnQf+C/XuxUiAU3ugyCIDIRuBUsA233gInArvAX4uQ9c9G6Ftyvh6z5w0boVXjMgcR+4SN0Kr2pU4j5wkboVjQI07gMXiVvRKEDjPnCRuBWNArTuAxeuW/H/uxJa94EL161oFKBxH7hI3IpGARr3gYvErfDKAYn7wEXqVnjXQr7uAxetW+EtwMd94NKGW8Eqp7nuAxeJWyH6oGlyH7ho3ArVJ+Wi+8Bl5VasWKHnF2xVybQED+mPAAAAAElFTkSuQmCC"
+                        />
+                    </defs>
+                </svg>
+
                 <label for="standart">Asistente</label>
             </div>
             <div>
                 <input type="radio" name="role_selected" (click)="changeRoleSelected('organizer')" />
+                <svg
+                    width="36"
+                    height="36"
+                    viewBox="0 0 36 36"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                    <rect x="0.825684" y="0.393066" width="34.7036" height="34.7036" fill="url(#pattern0_31_379)" />
+                    <defs>
+                        <pattern id="pattern0_31_379" patternContentUnits="objectBoundingBox" width="1" height="1">
+                            <use xlink:href="#image0_31_379" transform="scale(0.0208333)" />
+                        </pattern>
+                        <image
+                            id="image0_31_379"
+                            width="48"
+                            height="48"
+                            preserveAspectRatio="none"
+                            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAMrSURBVHgB7ZdLctpAEIZ7BHjNDQILKOIqU+IGYZfCXpgTGJ/AvkF8BHKC4BOYRSCpygLnBFaFhLjAVSgnCJts9Or0QKQQ0GNaSuJKRd8GiWlEt6Zn5v8BcnJycnL+ZwRk5KjW6YEmzgQKHQHL9EBTs761DPN2FR8nVijQEAiDD/PRNaQkdQF647TiufYNCtD3Bj3v2fThzfvEuJ9JUNGltmEOTWCSqoB1Up49QYDK7hgi3H5cjNpJcSGJpCpCgxTsJLVCD68cGyvT+Uj4ySfF2ZpblfeU+rrVZJxXsm6ACXsG1r0sxCs/KRexPVuMjbRxh7VTvSCcCZVQ/pFQj7Mm+DNAC9G/pDfYD0uKEzdbDA0Erx/EIvSAkw5woV3Ev3Qc7zpzHFHUfhnXgUGKNbCZasm9+dbMHgdg3G+NCygDgxQFiGB/f1rtPMket9mtghuEFTBI0UIY9HKhFNOvqnEgdysnGKfdyAAG7AJcwKBf6VS9PKx19CxxOu1C9HHh39OBNwAGqQ6yZv34Dv3FRlMuhHipWcXB7iEUF9egtjnYvPkLDNYLmtP5uAoMUhXQaDyvlDyN9m5R2RskbTNdjM4T4/Z/aNqW105a8Luk1kJxyblotWaLd0ZSnA/SenFsr8tNXpJZjVJv9zQglbkRa+WoN7kfR9ICwZA9/ymDGv3nUZ6BXT1PXw1IlJ3DI5NYQJyel8ry83L8BR6RYtxgoOdFuO4PSz5kplhwnVrsDNA+vtzR833XhUFY4irOi4uKyYksQFXPSzjOi0tSEdEtJPU8bi7Xev5hHKlRQpxX5EwlIc+NoqOdCU27lIp2y6m1wuKjZ6B+8tWXxLblVqMOGc5McVB1ajFiTlHPqzo0JqpOLaYART3PcF5cVJxadAHKel7deXFRcWqRBajqeY7z4qLi1CILoF4eCN8dUfUFEJNm/eRKr2w9dP1gdefFRcWpxToyS3O7Ul2ub6gIOllfuAf28qh+jM1a505+rT5TPFSdWqIWitPzvhZSdWgqcJ2ashrd1/NiOJ2/7m7+lOO8uMQ7tcyGxudPFKHi1H5bAT4hzotL7tRycnJy/h7fAYYeVZKGBJIZAAAAAElFTkSuQmCC"
+                        />
+                    </defs>
+                </svg>
+
                 <label for="organizer">Organizador</label>
             </div>
         </div>
-        <button type="submit" class="btn">Registrarse</button>
+        <button type="submit" class="btn" (click)="register()">Registrarse</button>
     </form>
 </div>

@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
 			UsersSeeder::class
 		]);
+		//php artisan db:seed para llamar a este seeder
     }
 }

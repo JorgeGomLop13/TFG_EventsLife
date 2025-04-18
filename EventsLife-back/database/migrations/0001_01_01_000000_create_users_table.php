@@ -20,6 +20,7 @@ return new class extends Migration
 			$table->string('remember_token');
 			$table->string('role');
 			$table->string('phone')->nullable();
+			$table->string('address')->nullable();
             $table->timestamps();
         });
 

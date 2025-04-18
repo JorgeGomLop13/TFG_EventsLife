@@ -20,7 +20,8 @@ class UsersSeeder extends Seeder
             'email' => 'test@example.com',
 			'password'=> 'test',
 			'role' => 'standart',
-			'phone' => '111223344'
+			'phone' => '111223344',
+			'address' => 'Calle Falsa 123',
         ]);
     }
 }
