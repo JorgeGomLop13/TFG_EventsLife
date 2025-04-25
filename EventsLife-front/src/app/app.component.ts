@@ -11,6 +11,7 @@ import { GetInfoService } from './services/get-info.service';
 })
 export class AppComponent implements OnInit {
   title = 'EventsLife-front';
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   users: any[] = [];
   constructor(private infoGeneral: GetInfoService) {}
 

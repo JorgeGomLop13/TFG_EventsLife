@@ -4,25 +4,45 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
-        <link rel="stylesheet" href="header.component.css" />
+        <link rel="stylesheet" href="header.component.scss" />
     </head>
     <body>
         <header class="header">
-            <div>
+            <div class="title">
                 <h1>EventsLife</h1>
             </div>
             <div class="header-buttons-search">
                 <button>Explora Eventos</button>
-                <button *ngIf="role === 'organizer'">Crear Evento</button>
+                <button *ngIf="userRole === 'organizer'">Crear Evento</button>
             </div>
-            <div *ngIf="role === ''" class="header-buttons-login">
+            <div *ngIf="token === null" class="header-buttons-login">
                 <button class="header-button" [routerLink]="['/register']">Registrarse</button>
-                <button class="header-button">Iniciar Sesion</button>
+                <button class="header-button" [routerLink]="['/login']">Iniciar Sesión</button>
             </div>
-            <div *ngIf="role === 'standart' || role === 'organizer'">
-                <img src="" alt="logoCuenta" />
-                <!--En usuario es nombre del usuario-->
-                <button>Usuario</button>
+            <div *ngIf="token != null && userName" class="user" [routerLink]="['/profile']">
+                <svg
+                    width="26"
+                    height="26"
+                    viewBox="0 0 26 26"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                    <rect width="26" height="26" fill="url(#pattern0_141_369)" />
+                    <defs>
+                        <pattern id="pattern0_141_369" patternContentUnits="objectBoundingBox" width="1" height="1">
+                            <use xlink:href="#image0_141_369" transform="scale(0.0208333)" />
+                        </pattern>
+                        <image
+                            id="image0_141_369"
+                            width="48"
+                            height="48"
+                            preserveAspectRatio="none"
+                            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAATaSURBVHgB7VrrUdwwEF7M8RqYyaUCnApCBzEVcKmASwWQCqADkgq4VJCkglMq4FIBpoKQGRjekG8vkm9PSDrJNgM/+GY8lmxptVqtVrtrE73ieTFHLeLh4aF7c3OTo7iB683c3FxXPz/FdZJl2Wmn0xnh+Sm1hMYTuL6+3gBzPTD3Afcipg8moHBTt7e331ZWVkpqgNoTgKQL3PZimfYygMmAxmBxcfEb1UDyBM7OzjaWlpYOAoyXuJRWE6Mq3fv7+xzPcvqvXi6M7u7uPjZdkSAuLy93oTIPjmsIddjiPTCLBrfhtuhz6KJ1dXW1T21Db86hY7C9GKZ9uLi4yF0TAd3vsXRnqhAPMj8/P0QxF48VlvuTb7l1nwIqs851qM9vlEvo+SjQ/hDFwjzDBEr022ykUiwFSOTYlrqvPd73XSsl+jKtbV9/pm23b7LCTPC7xYRzcJZgiHHXnuE+LlqOfTakOuDNJAmB8I6PeXuVcP3hyWNSe3xpQfyxpeubBJ73rbF3KQWaqSi1cUj+wLXsTNNWkZB07bZsvikWYOooZhDW+RgVsyYS3YfHTlYlmynfMuu2xzGrZAMCOohhzNYE1IsY4nLWh7527ANJnQ9N1Ia2btWeANYD/OxFr4JjxrmvLU7Tnjx4KBFgrLJwoOVVIz1Z717IZAWuriQ0CB0iIPy+IpJlI0rHSNDKfY20T6VMHX7YlnyfWe0LmjD1g14IwMtXU7adyEy86MqXONp/UQAcoJgyjvx4EzdB1QdSDq4geFGiWkgzXU0AeiiZmBk1wRdSgoEi5cjnvSWFhYPqJNRe81Ka+vn5eW7KmWhUMcCOFM2A3h9KV9lbjTajUIk+9zFjra2txewhZQrLy8uT/WcKUIN1MUBJcZBR1G7sQQZhVZNFeZ8iIDUCvD5WIbkCNImkgoB7PCAhGWDAPpTL/Gpz+EW7zQYqIZQ8dfHaoYbguEDGCyxd1HegUoompnJDx9BTagpJfqKG6AiCUurRG5L3AiS+aQUkbNF6uPc83RQznxisdF28ynPgr2iQFEQwI1CFTRRZomWgqcLV57Y1Iq3cFOQelSokLUFBNaD3xICPe1iKdQhibJo5nGRbjvsJ1UduCpa2VA+nfI5GoVzLCPEmrdCUz4HN+YFeCMBLIapKmtQpK6SzZOPG2GQcxv2kAOzsQypmZStEuy3Jo3w3lVZhHx+3I1NfWFh463IpOOjB8+2maUUDNql8oLnOBC2kY1PHaryTBmDKG9WSUKYO/2jHJsYBD4qHbTHP0CnHgStbAeali6Js6/UoscVhmz6YxjAz9iS4OG2uasYDYy+WHUF6fMBtijGPRZd+1MntCqZjsw+pCGUrrDGPoomyHZcEHcxvU8uwsxX2mCkx9xi+THRK9iEVVrai+ZiWKiVnH1JhZytiEgZZ6CXM6Eea9m26Ohh5EoBhPnumNjQ2bTOP1ZP7HLa5Eq7kcCh3mgxeWkemepz4ajKIprvvoDt8El/MYe6qieBdL/YTE7f1peN9WXAfkj/yub6mWOCMRkn/9071kU9Pjvvknn4KE/gcGeBXqP2Zlf0h3LapZuwgwN7lPgzGrzqdG3/o5hXhlKT2jYrIbuz1ckA/aBjktP+rARzA95w10N+Fq18N+DcD6Pfv1dXVss1fDV7x3PgHAVhpMFnPkgEAAAAASUVORK5CYII="
+                        />
+                    </defs>
+                </svg>
+                <button>{{ userName }}</button>
             </div>
         </header>
     </body>
