@@ -1,11 +1,23 @@
 import { Routes } from '@angular/router';
-import { HomepageComponent } from './components/homepage/homepage.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', component: HomepageComponent },
-  { path: 'home', component: HomepageComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent }
+  {
+    path: '',
+    loadComponent: () =>
+      import('./components/home/homepage.component').then((m) => m.HomepageComponent) /*,canActivate: [AuthGuard]*/
+  },
+  { path: 'home', loadComponent: () => import('./components/home/homepage.component').then((m) => m.HomepageComponent) },
+  { path: 'register', loadComponent: () => import('./components/register/register.component').then((m) => m.RegisterComponent) },
+  { path: 'login', loadComponent: () => import('./components/login/login.component').then((m) => m.LoginComponent) },
+  {
+    path: 'profile',
+    loadComponent: () => import('./components/profile/profile.component').then((m) => m.ProfileComponent),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'createEvent',
+    loadComponent: () => import('./components/create-event/create-event.component').then((m) => m.CreateEventComponent)
+  },
+  { path: '**', loadComponent: () => import('./components/not-found/not-found.component').then((m) => m.NotFoundComponent) }
 ];

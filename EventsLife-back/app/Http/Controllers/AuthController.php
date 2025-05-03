@@ -64,6 +64,28 @@ class AuthController extends Controller
 		]);
 	}
 
+
+
+	public function createEvent(Request $request){
+		$validator = Validator::make($request->all(), [
+			'title' => 'required|string|max:255',
+			'description' => 'required|string|max:255',
+			'date' => 'required|date',
+			'location' => 'required|string|max:255',
+			'capacity' => 'required|integer',
+			'ticket_price' => 'required|numeric',
+			'image_url' => 'nullable|string|max:255',
+		]);
+
+		if ($validator->fails()) {
+			return response()->json($validator->errors(), 400);
+		}
+
+		// Aquí puedes crear el evento en la base de datos
+		return response()->json(['message' => 'Evento creado exitosamente']);
+
+	}
+
 	
 
 	public function user(Request $request){

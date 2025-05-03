@@ -9,11 +9,11 @@
     <body>
         <header class="header">
             <div class="title">
-                <h1>EventsLife</h1>
+                <h1 [routerLink]="['/home']">EventsLife</h1>
             </div>
             <div class="header-buttons-search">
                 <button>Explora Eventos</button>
-                <button *ngIf="userRole === 'organizer'">Crear Evento</button>
+                <button *ngIf="userRole === 'organizer'" [routerLink]="['/createEvent']">Crear Evento</button>
             </div>
             <div *ngIf="token === null" class="header-buttons-login">
                 <button class="header-button" [routerLink]="['/register']">Registrarse</button>

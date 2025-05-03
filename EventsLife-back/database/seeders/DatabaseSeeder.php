@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
 			UsersSeeder::class
+			, CategorySeeder::class
+			, EventSeeder::class
 		]);
 		//php artisan db:seed para llamar a este seeder
     }

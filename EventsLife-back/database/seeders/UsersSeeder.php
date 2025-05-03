@@ -23,5 +23,13 @@ class UsersSeeder extends Seeder
 			'phone' => '111223344',
 			'address' => 'Calle Falsa 123',
         ]);
+		User::factory()->create([
+            'name' => 'Test User2',
+            'email' => 'test2@example.com',
+			'password'=> 'test2',
+			'role' => 'organizer',
+			'phone' => '555667788',
+			'address' => 'Calle Falsa 456',
+        ]);
     }
 }

@@ -47,7 +47,9 @@ input[type='password'],
 input[type='email'],
 input[type='date'],
 input[type='time'],
-input[type='number'] {
+input[type='number'],
+input[type='search'],
+input[type='tel'] {
   -webkit-appearance: none;
   -moz-appearance: textfield;
   appearance: none;
@@ -57,4 +59,7 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
+}
+label {
+  all: unset;
 }

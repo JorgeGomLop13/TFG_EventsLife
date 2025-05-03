@@ -1,0 +1,141 @@
+<div class="container-form">
+    <form [formGroup]="form" class="form">
+        <div class="field">
+            <label for="eventName">Nombre del evento</label>
+            <input
+                type="text"
+                id="eventName"
+                name="eventName"
+                formControlName="eventName"
+                required
+                placeholder="Titulo del evento..."
+                class="fill-info"
+            />
+        </div>
+        <div class="field">
+            <label>¿Cuándo lo quieres realizar?</label>
+            <div class="fecha">
+                <div class="time_global">
+                    <label for="eventDate">Fecha</label>
+                    <input type="date" id="eventDate" name="eventDate" formControlName="eventDate" required class="fill-info" />
+                </div>
+                <div class="time_start">
+                    <label for="eventTimeStart">Hora inicio</label>
+                    <input
+                        type="time"
+                        id="eventTimeStart"
+                        name="eventTimeStart"
+                        formControlName="eventTimeStart"
+                        required
+                        class="fill-info"
+                    />
+                </div>
+                <div class="time_end">
+                    <label for="eventTimeEnd">Hora fin</label>
+                    <input
+                        type="time"
+                        id="eventTimeEnd"
+                        name="eventTimeEnd"
+                        formControlName="eventTimeEnd"
+                        required
+                        class="fill-info"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label for="eventLocation">¿Dónde se encuentra?</label>
+            <input
+                type="text"
+                id="eventLocation"
+                name="eventLocation"
+                formControlName="eventLocation"
+                required
+                placeholder="Ubicación del evento..."
+                class="fill-info"
+            />
+        </div>
+        <div class="field">
+            <label for="eventDescription">Descripción del evento</label>
+            <textarea
+                type="text"
+                id="eventDescription"
+                name="eventDescription"
+                formControlName="eventDescription"
+                required
+                class="fill-info-description"
+            ></textarea>
+        </div>
+        <div class="field">
+            <label for="eventPrice">¿Cuánto quieres cobrar por la entrada?</label>
+            <input
+                type="number"
+                id="eventPrice"
+                name="eventPrice"
+                formControlName="eventPrice"
+                required
+                class="fill-info"
+                [readonly]="freeEvent"
+            />
+            <div class="free-entry">
+                <input type="checkbox" id="eventPriceFree" name="eventPriceFree" (change)="onCheckboxChange()" />
+                <label for="eventPriceFree">La entrada es gratis</label>
+            </div>
+        </div>
+        <div class="field">
+            <label for="eventCapacity">¿Cuál es la capacidad mxima del evento?</label>
+            <input
+                type="number"
+                id="eventCapacity"
+                name="eventCapacity"
+                formControlName="eventCapacity"
+                required
+                class="fill-info"
+            />
+        </div>
+        <div class="field">
+            <label for="eventCategoryId">Selecciona una categoría</label>
+            <select id="eventCategoryId" name="eventCategoryId" formControlName="eventCategoryId" required class="fill-info">
+                <option value="" disabled selected>Selecciona una categoría</option>
+                <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+            </select>
+        </div>
+        <div class="field">
+            <label for="portrait">¡Sube una foto para la portada de tu evento!</label>
+            <input type="file" (change)="onFileSelected($event)" accept="image/*" id="eventImage" name="eventImage" />
+            <img *ngIf="eventImagePreview" [src]="eventImagePreview" alt="Vista previa" width="200" height="200" />
+        </div>
+        <!--Hasta que el formulario no sea valido el boton estara disabled-->
+        <button type="submit" (click)="selectFunction(useFunction)" [disabled]="form.invalid" class="btn_action">
+            Crear Libro
+        </button>
+    </form>
+</div>
+
+<footer class="footer">
+    <div class="goBack" [routerLink]="['/home']">
+        <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+            <rect width="24" height="24" fill="url(#pattern0_44_8)" />
+            <defs>
+                <pattern id="pattern0_44_8" patternContentUnits="objectBoundingBox" width="1" height="1">
+                    <use xlink:href="#image0_44_8" transform="scale(0.0208333)" />
+                </pattern>
+                <image
+                    id="image0_44_8"
+                    width="48"
+                    height="48"
+                    preserveAspectRatio="none"
+                    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAL/SURBVHgB7ZjNbhoxEIDH3iTqJVJSRVHbS1cNRFH+RJ4gcMzPgb4BOfXYRwg8Qp6geQQqRUlvkFtvpQqqUECqc2sjNdqqUqWy4OkYAgQK2LtdxErZ78La2N4Zjz0/CxARERER8ZixwAeJeDqxtPTqzYv5jZtvTsWBKTIDHlHCS9YoMGALzVk3SV0pmCLcy+CO8Ai4oNrI2r/TxFiBQeFJfNGoy9cwZYwU2FrZSw8K79ZlqiI+CJgyTDdg2M6HRXjFWAUSa2lbysansAqvGOuFpHRp5yG0witGWmBz7TDJJBa6HYinyEBAAHDGHcngc7lyVoT/ZLQFpNzt04+xjPbCGIKIwMi026sHgh6LljubK4m8AB94igNBQzrYtEeZ5pz7dXv1MAs+GH2EYnSE+MMjBHSEUEAg8AQDmaDX2/39mLfqv49Komicnow9FVvxgwKNSN4PFLw+m/Jr6qHrx/Z26UKc9iuC+avrc+MAOTaZe7q8cmmhlaHHJ6C8kSXTz+c33geVwN3e1W5uf1RPlhfjdMVYst3L1p4txn5+v6t9NFlDey/XKZBZFMjgPhZMwhKKzdj+MeMs22ogOHSxd0zeob3EX6r5Ev0ckehOe22w5ZxbSNhpGwKkXDvP0eLFVoMBZbp/3prMM/JCV9dn+SbOpCatBCLL9Vo8YzLH2I0qSwwqQfXAOwiQco0CW8fTkRWUJ9TN8RQH/lFiEvUAsmL3keNL3XDPgUwp4fLGDiV42UnUA7Su6DwzQFs33nNJqahUWgldDkLAVFOJYTCK0t0GojbehFAB7CpACV9JNz5UCqgUvpXgtUBxVbu41M0JlQJcYs8td4Kabg6EBJVO93YfwHWlkZMIhQJt4fG400aJWdPSNagiyxetshVJcGyn7G28pdOe4sBWfD9DdbE2Ouqgz5I2Y5iknbb7/8H8LypowAPGFlDCU9IeaO7zAAdRZsvVixPwiLEFmuDzU/Z4HDrwp66LJ34/13i6A+tkBR7AEeIgBUpm5OcjIiIiIiLG8ReIVF4tY0vSGgAAAABJRU5ErkJggg=="
+                />
+            </defs>
+        </svg>
+        <button>Volver atrás</button>
+    </div>
+</footer>

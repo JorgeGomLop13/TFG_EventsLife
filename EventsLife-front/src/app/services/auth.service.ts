@@ -1,6 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { UserResponse } from '../core/types/user';
 
 @Injectable({
   providedIn: 'root'
@@ -8,28 +11,29 @@ import { Observable } from 'rxjs';
 export class AuthService {
   private apiUrl = 'http://127.0.0.1:8000/api'; // tu ruta de API
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   register(user: any) {
-    return this.http.post<RegisterResponse>(`${this.apiUrl}/register`, user);
+    return this.http.post<UserResponse>(`${this.apiUrl}/register`, user);
   }
 
   login(email: string, password: string) {
-    return this.http.post<RegisterResponse>(`${this.apiUrl}/login`, { email, password });
+    return this.http.post<UserResponse>(`${this.apiUrl}/login`, { email, password });
   }
 
   getUser(): Observable<any> {
-    //Aqui obtengo el token del localStorage
-    // Y lo paso como Authorization en el header para obtener al usuario
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
-    return this.http.get(`${this.apiUrl}/user`, { headers });
+    return this.http.get(`${this.apiUrl}/user`);
   }
-}
 
-export interface RegisterResponse {
-  token: string;
-  user: any;
+  logout() {
+    localStorage.clear();
+
+    this.router.navigate(['/home']);
+  }
+
+  //Metodo encargado para comprobar que el usuario esta autenticado, para ello se comprueba si el token existe
+  isAuthenticated() {
+    const token = localStorage.getItem('token');
+    return token !== null && token !== undefined; //Comprobamos que el token no es nulo
+  }
 }

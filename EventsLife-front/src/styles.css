@@ -5,7 +5,19 @@
   box-sizing: border-box;
 }
 
-button {
+body {
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
   background: none;
   border: none;
   padding: 0;
@@ -13,4 +25,75 @@ button {
   font: inherit;
   color: inherit;
   cursor: pointer;
+  outline: none; /* Evitar el borde azul por defecto de algunos navegadores en inputs */
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=date],
+input[type=time],
+input[type=number],
+input[type=search],
+input[type=tel] {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  appearance: none;
+}
+
+input,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+label {
+  all: unset;
+}
+
+html {
+  font-size: 16px;
+}
+
+@media (max-width: 500px) {
+  html {
+    font-size: 10px;
+  }
+}
+@media (min-width: 500px) and (max-width: 700px) {
+  html {
+    font-size: 12px;
+  }
+}
+@media (min-width: 700px) and (max-width: 1024px) {
+  html {
+    font-size: 15px;
+  }
+}
+@media (min-width: 1024px) {
+  html {
+    font-size: 18px;
+  }
 }/*# sourceMappingURL=styles.css.map */
